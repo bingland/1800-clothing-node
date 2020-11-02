@@ -1,0 +1,205 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="1800 Clothing">
+  <meta name="author" content="Carma">
+  <link rel="icon" href="dist/img/vue-logo.png">
+
+  <title>Costumes</title>
+
+  <!-- Bootstrap core CSS -->
+  <!-- REMOVED because it's messing with the styling for the nav bar and it's bad for organization
+    <link href="./css/bootstrap.min.css" rel="stylesheet"> -->
+
+  <!-- Custom styles for this template -->
+  <!--<link href="dist/css/pagination-style.css" rel="stylesheet">-->
+  <link rel="stylesheet" href="./css/mdi-icons.css">
+  <link href="./css/offcanvas.css" rel="stylesheet">
+  <link href="./scss/styles.css" rel="stylesheet">
+  <script src="./js/modernizr.custom.js"></script>
+</head>
+
+
+<body>
+  <header class="header">
+    <div class="flexer2">
+      <a href="./index.html" class="logo"><img src="./assets/hatlogo.png"></a>
+      <input class="menu-btn" type="checkbox" id="menu-btn" />
+      <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+    </div>
+
+    <ul class="menu">
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./costumes.html">Costumes</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+        <li><a href="./permissions.html">Permissions</a></li>
+        <li><a href="./download.html">View the Book</a></li>
+    </ul>
+  </header>
+
+  <main role="main" id="carma-app" class ="carma">
+
+      <div class="appGrid">
+        <div class="searchArea">
+          <span class="fa fa-search form-control-feedback"></span>
+          <input type="text" v-model="searchInput" class="form-control" placeholder="Search">
+
+          <!--Radio Buttons-->
+          <h5>Search by Decade</h5>
+          <div class="decadeRadio">
+            <input @click="yearRangeSearch(1800, 1810)" type="radio" id="customRadio1" name="decadeRadio">
+            <label for="customRadio1"><b>1800 - 1810</b></label>
+          </div>
+          <div class="decadeRadio">
+            <input @click="yearRangeSearch(1810, 1820)" type="radio" id="customRadio2" name="decadeRadio">
+            <label for="customRadio2"><b>1810 - 1820</b></label>
+          </div>
+          <div class="decadeRadio">
+            <input @click="yearRangeSearch(1820, 1830)" type="radio" id="customRadio3" name="decadeRadio">
+            <label for="customRadio3"><b>1820 - 1830</b></label>
+          </div>
+          <div class="decadeRadio">
+            <input @click="yearRangeSearch(1830, 1840)" type="radio" id="customRadio4" name="decadeRadio">
+            <label for="customRadio4"><b>1830 - 1840</b></label>
+          </div>
+          <div class="decadeRadio">
+            <input @click="yearRangeSearch(1840, 1850)" type="radio" id="customRadio5" name="decadeRadio">
+            <label for="customRadio5"><b>1840 - 1850</b></label>
+          </div>
+          <div class="decadeRadio">
+            <input @click="yearRangeSearch(1850, 1860)" type="radio" id="customRadio6" name="decadeRadio">
+            <label for="customRadio6"><b>1850 - 1860</b></label>
+          </div>
+          <div class="decadeRadio">
+            <input @click="yearRangeSearch(1860, 1870)" type="radio" id="customRadio7" name="decadeRadio">
+            <label for="customRadio7"><b>1860 - 1870</b></label>
+          </div>
+          <div class="decadeRadio">
+            <input @click="yearRangeSearch(1870, 1880)" type="radio" id="customRadio8" name="decadeRadio">
+            <label for="customRadio8"><b>1870 - 1880</b></label>
+          </div>
+          <div class="decadeRadio">
+            <input @click="yearRangeSearch(1880, 1890)" type="radio" id="customRadio9" name="decadeRadio">
+            <label for="customRadio9"><b>1880 - 1890</b></label>
+          </div>
+          <div class="decadeRadio">
+            <input @click="yearRangeSearch(1890, 1900)" type="radio" id="customRadio10" name="decadeRadio">
+            <label for="customRadio10"><b>1890 - 1900</b></label>
+          </div>
+          <div class="decadeRadio">
+            <input @click="getAllCostumes()" type="radio" id="customRadio11" name="decadeRadio">
+            <label for="customRadio11"><b>Show all from 1800 to 1900</b></label>
+          </div>
+
+
+            <!--Checkbox Buttons-->
+            <h5>Filter by Person</h5>
+            <div class="filterCheck">
+              <input @click="checkMark()" type="checkbox" value="family" v-model="checkedItems" id="family" vchecked>
+              <label for="defaultCheck1">
+                <b>Family</b>
+              </label>
+            </div>
+            <div class="filterCheck">
+              <input type="checkbox" value="women" v-model="checkedItems" id="women">
+              <label for="defaultCheck2">
+                <b>Women</b>
+              </label>
+            </div>
+            <div class="filterCheck">
+              <input type="checkbox" value="men" v-model="checkedItems" id="men">
+              <label for="defaultCheck3">
+                <b>Men</b>
+              </label>
+            </div>
+            <div class="filterCheck">
+              <input type="checkbox" value="child" v-model="checkedItems" id="child">
+              <label for="defaultCheck4">
+                <b>Child</b>
+              </label>
+            </div>
+
+          </div>
+
+          <!-- Costume boxes -->
+          <!-- 
+            caption, clothing, description, id, image, person, source, thumbnail, year_from, _year_to
+          -->
+          <div class="costumeArea">
+            <div class="costumes" v-for="costume in displayedCostumes" v-cloak>
+              <div class="costumeCard" v-on:click="setPopup(costume.id)">
+                <div class="card-body thumbnail" data-toggle="modal" v-bind:data-target="'#' + costume.id">
+                  <img class="cardImg" v-bind:src=" '/carma/assets/thumbnails/' + costume.thumbnail" alt="Card image cap" data-toggle="modal" v-bind:data-target="'#' + costume.id">
+                  <!-- PREVIOUS CODE: <h5 class="capitalize"><span style="text-transform: capitalize;">{{costume.person}}</span> clothing from {{costume.year_from}} to {{costume.year_to}}</h5> -->
+                  <h5 class="cardText">{{costume.caption}}</h5>
+                  <!--Buttons for Admin Mode-->
+                  <!--<p class="card-text">{{post.description}}...</p>-->
+                  <!--<div class="d-flex justify-content-between align-items-center">-->
+                  <!--    <div class="btn-group">-->
+                  <!--   <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
+                  <!--<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
+                  <!--    </div>-->
+
+                </div>
+              </div>
+            </div>
+
+          <ul class="pagination">
+            <button type="button" class="paginationNextPrev" v-if="page != 1" @click="page--">Previous</button>
+            <button type="button" class="paginationBtn" v-for="pageNumber in pages.slice(page-1, page+5)" @click="page = pageNumber">{{pageNumber}}</button>
+            <button type="button" @click="page++" v-if="page < pages.length" class="paginationNextPrev">Next</button>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Popup Box -->
+      <div class="popup" tabindex="-1" v-if="popupCostume.display" v-cloak>
+        <div class="popupContent">
+          <div class="popupHeader">
+            <button v-on:click="togglePopup" class="closeButton" title="Close">
+              <span>&times;</span>
+            </button>
+            <h5>{{popupCostume.caption}}</h5>
+          </div>
+          <div class="popupGrid">
+            <div class="fullsize">
+              <img v-bind:src=" '/carma/assets/images/' + popupCostume.image" alt="Card image" target="_blank">
+              <div class="fullsizeLink"><a v-bind:href=" '/carma/assets/images/' + popupCostume.image" target="_blank">Open Full Size Image</a></div>
+            </div>
+            <div class="popupFooter">
+                <div class="popupFooterDesc"><b>Description:</b> {{popupCostume.description}}</div>
+                <div class="popupFooterSource"><b>Source:</b> {{popupCostume.source}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <footer>
+        <p>1800Clothing.org &copy; 2018-2019</p>
+      </footer>
+
+  </main>
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <!--
+  <script src="js/bootstrap.min.js"></script>
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <!--Activate for deployment-->
+  <!--<script src="dist/js/vue.min.js"></script>-->
+  <script src="js/axios.min.js"></script>
+  <script src="js/costumes_vue.js"></script>
+
+  </div>
+  <script type="text/javascript" src="./script.js"></script>
+</body>
+
+</html>

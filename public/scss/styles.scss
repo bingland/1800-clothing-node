@@ -1,0 +1,14 @@
+@import "normalize";
+@import "small";
+@import "./components/index";
+@import "./components/navbar";
+@import "./components/costumes";
+@import "./components/downloads";
+
+@media only screen and (min-width: 30rem) {
+    @import "medium";
+} /* end of media query */
+
+@media only screen and (min-width: 60rem) {
+    @import "large";
+} /* end of media query */

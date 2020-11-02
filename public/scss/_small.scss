@@ -1,0 +1,98 @@
+/*----- Clearfix: Force an Element not to collapse -----*/
+// .clearfix:after {
+//     content: "";
+//     display: table;
+//     clear: both;
+//   }
+
+// #wrapper {
+//   min-height: 100vh;
+// }
+ 
+// hides the vue brackets so that they don't show before Vue.js loads
+[v-cloak] {
+  display: none
+}
+
+// html{
+//   overflow-y: scroll;
+// }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Nunito Sans', sans-serif;
+  // background-image: url("../assets/text_bg.jpg");
+  background-image: url("../assets/LIghtBg.png");
+}
+
+.logo {
+  position: relative;
+  margin-top: 4px;
+}
+
+footer {
+  color: lightgrey;
+  background-color: #2E2261;
+  font-weight: lighter;
+  text-align: center;
+  font-size: .75rem;
+  padding: 1rem 0;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+footer p{
+  margin: 0;
+}
+
+.contentwrapper {
+  // border: solid red;
+  max-width: 86%;
+  margin: 0 auto;
+  h1 {
+    padding-top: 15vh;
+    margin: 0;
+  }
+  h2{
+    font-size: 1.2rem;
+  }
+  margin-bottom: 5vh;
+}
+
+// #permissionWrapper {
+//   margin-bottom: 65vh;
+// }
+
+//////////////
+.about-container{
+  max-width: 84%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: minmax(250px,auto);
+  gap: 10px;
+  margin-bottom: 0 !important;
+}
+
+.carma-photo{
+  justify-self: center;
+  align-self: center;
+  margin-top: 5px;
+}
+
+#test {
+  padding-top: 20vh;
+  margin: 0;
+}
+
+// #bottomFoot
+// {
+//   //position: fixed;
+//   //bottom: 0;
+
+  
+  
+// }
