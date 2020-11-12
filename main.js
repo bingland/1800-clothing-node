@@ -36,8 +36,29 @@ if you wanted to search for costumes from 1850 to 1860, you need to format your 
 // NOTE: right now this app doesn't rely on a backend. in the future, in order to make a system that allows somebody to add, modify and delete costumes, a database will be required.
 const costumes = require('./costumes.json')
 
+const sortByYearGap = (a, b) => {
+    if (a.year_to - a.year_from > b.year_to - b.year_from) {
+        return 1
+    }
+    if (a.year_to - a.year_from < b.year_to - b.year_from) {
+        return -1
+    }
+    return 0
+}
+
+const sortByYearFrom = (a, b) => {
+    if (a.year_from > b.year_from) {
+        return 1
+    }
+    if (a.year_from < b.year_from) {
+        return -1
+    }
+    return 0
+}
+
 app.get('/api/costumes', (req, res) => {
     console.log(req.url)
+    let results = costumes.sort(sortByYearFrom)
     res.json(costumes)
 })
 
@@ -47,6 +68,7 @@ app.get('/api/search/:decade', (req, res) => {
     let results = costumes.filter(costume => {
         return costume.year_from <= req.params.decade && costume.year_to >= req.params.decade
     })
+    results.sort(sortByYearGap)
     res.json(results)
 })
 
@@ -55,6 +77,7 @@ app.get('/api/yearssearch/:year_from/:year_to', (req, res) => {
     let results = costumes.filter(costume => {
         return costume.year_from <= req.params.year_from && costume.year_to >= req.params.year_to
     })
+    results.sort(sortByYearGap)
     res.json(results)
 })
  
