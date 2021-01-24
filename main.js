@@ -34,7 +34,7 @@ if you wanted to search for costumes from 1850 to 1860, you need to format your 
 */
 
 // NOTE: right now this app doesn't rely on a backend. in the future, in order to make a system that allows somebody to add, modify and delete costumes, a database will be required.
-const costumes = require('./costumes.json')
+const costumes = require('./json/costumes.json')
 
 const sortByYearGap = (a, b) => {
     if (a.year_to - a.year_from > b.year_to - b.year_from) {
