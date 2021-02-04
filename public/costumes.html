@@ -124,7 +124,7 @@
           <div class="costumes" v-for="costume in displayedCostumes" v-cloak>
             <div class="costumeCard" v-on:click="setPopup(costume.id)">
               <div class="card-body thumbnail" data-toggle="modal" v-bind:data-target="'#' + costume.id">
-                <img class="cardImg" v-bind:src=" './assets/thumbnails/' + costume.thumbnail" alt="Card image cap" data-toggle="modal" v-bind:data-target="'#' + costume.id">
+                <img class="cardImg" v-bind:src=" './assets/images/' + costume.image" alt="Card image cap" data-toggle="modal" v-bind:data-target="'#' + costume.id">
                 <!-- PREVIOUS CODE: <h5 class="capitalize"><span style="text-transform: capitalize;">{{costume.person}}</span> clothing from {{costume.year_from}} to {{costume.year_to}}</h5> -->
                 <div class="cardText">{{costume.caption}}</div>
                 <div class="cardTags">
